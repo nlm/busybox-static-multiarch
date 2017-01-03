@@ -21,3 +21,5 @@ deploy:
   on:
     repo: nlm/busybox-static-multiarch
     tags: true
+  skip_cleanup: true
+  overwrite: true
