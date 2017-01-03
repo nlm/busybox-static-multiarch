@@ -7,11 +7,18 @@ Multi-arch static busybox builder based on @multiarch crossbuild tool
 
 ## Using pre-built binaries
 
-Busybox static binaries for all the supported targets are automatically
-built using Travis. You can download them on the
+**Recommended use**: Busybox static binaries for all the supported
+targets are automatically built using Travis. This is the recommended use of
+this repository.
+
+You can download them on the
 [latest release](https://github.com/nlm/busybox-static-multiarch/releases/latest/) page.
 
 ## Manually build your binaries using this repo
+
+This is what you want to do if you prefer building your releases locally,
+if you want to build a version not built by this repo or if you want to
+customize your configuration.
 
 ### Requirements
 
@@ -23,11 +30,11 @@ built using Travis. You can download them on the
 
 Fetch the source code from official mirror:
 
-		# make source
+    # make source
 
 Create a default config file:
 
-		# make defconfig
+    # make defconfig
 
 *Or* use the pre-made config file:
 
@@ -39,11 +46,11 @@ Create a default config file:
 
 Build the program, choosing a build target (see below):
 
-		# make CROSS_TRIPLE=YOUR_BUILD_TARGET_TRIPLE build
+    # make CROSS_TRIPLE=YOUR_BUILD_TARGET_TRIPLE build
 
 Clean your repo
 
-		# make clean
+    # make clean
 
 ## Supported targets
 
