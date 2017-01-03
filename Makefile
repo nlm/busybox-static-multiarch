@@ -1,7 +1,7 @@
 BUSYBOX_VERSION=1.26.1
 BUSYBOX_BZSOURCE=https://dl.xephon.org/busybox/busybox-$(BUSYBOX_VERSION).tar.bz2
 CROSS_TRIPLE=x86_64-linux-gnu
-CROSSBUILD_IMAGE=multiarch/crossbuild:dev
+CROSSBUILD_IMAGE=multiarch/crossbuild
 REGISTER_IMAGE=multiarch/qemu-user-static:register
 BUILD_DIR=build
 BUILD_PATH=$(shell pwd)/$(BUILD_DIR)
