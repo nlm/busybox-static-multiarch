@@ -11,21 +11,20 @@ all: build
 
 build: busybox-$(CROSS_TRIPLE)
 
-busybox-$(CROSS_TRIPLE): $(BUILD_DIR)/.config
+busybox-$(CROSS_TRIPLE): source
 	docker run --rm -ti -v $(BUILD_DIR):/workdir -e CROSS_TRIPLE=$(CROSS_TRIPLE) $(CROSSBUILD_IMAGE) make
 	cp $(BUILD_DIR)/busybox $@
 
 # Config
 
-$(BUILD_DIR)/.config: source
-	echo $@
-	file $@
-	touch $@
-	@echo you must configure busybox build first
-	@echo -- - run 'make config' for interactive configuration
-	@echo -- - run 'make defconfig' for default configuration
-	@echo -- - run 'make copyconfig' to copy 'config' file from current directory
-	#docker run --rm -ti -v $(BUILD_DIR):/workdir -e CROSS_TRIPLE=$(CROSS_TRIPLE) $(CROSSBUILD_IMAGE) make defconfig
+#$(BUILD_DIR)/.config: source
+#	echo $@
+#	file $@
+#	touch $@
+#	@echo you must configure busybox build first
+#	@echo -- - run 'make config' for interactive configuration
+#	@echo -- - run 'make defconfig' for default configuration
+#	@echo -- - run 'make copyconfig' to copy 'config' file from current directory
 
 config: source
 	docker run --rm -ti -v $(BUILD_DIR):/workdir -e CROSS_TRIPLE=$(CROSS_TRIPLE) $(CROSSBUILD_IMAGE) make config
