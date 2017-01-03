@@ -1,5 +1,5 @@
 BUSYBOX_VERSION=1.26.1
-BUSYBOX_BZSOURCE=https://dl.xephon.org/busybox/busybox-$(BUSYBOX_VERSION).tar.bz2
+BUSYBOX_BZSOURCE=https://www.busybox.net/downloads/busybox-$(BUSYBOX_VERSION).tar.bz2
 CROSS_TRIPLE=x86_64-linux-gnu
 CROSSBUILD_IMAGE=multiarch/crossbuild
 REGISTER_IMAGE=multiarch/qemu-user-static:register
