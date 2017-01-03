@@ -14,4 +14,3 @@ script:
   - make copyconfig
   - make register
   - make CROSS_TRIPLE=$CROSS_TRIPLE build
-  - make clean
