@@ -9,7 +9,7 @@ env:
 - CROSS_TRIPLE=aarch64-linux-gnu
 - CROSS_TRIPLE=powerpc64le-linux-gnu
 install:
-- apt-get update && apt-get install upx-ucl
+- sudo apt-get -q update && sudo apt-get -y install upx-ucl
 script:
 - make source
 - make copyconfig
