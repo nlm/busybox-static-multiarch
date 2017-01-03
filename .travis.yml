@@ -14,3 +14,12 @@ script:
   - make copyconfig
   - make register
   - make CROSS_TRIPLE=$CROSS_TRIPLE build
+
+deploy:
+  provider: releases
+  api_key:
+		secure: "B2/1L6+/+AuoTQLI3rVh4iXlLBkFFdqwVNMYLpmjOqYYqEMZDpCw46j/NtjbDZldmcgwn6DKZ+klHPlpDlxDI4M8YG7ZQTboVbLnfTwSwo3aNeeohXxDo3s/+KVQ4T1Qsq3v/GdbknbFHC9qyD+xK6n4XD3GqU2Uf10hko+dq7wbDwarxNiDEXA1Dg0icRA21iD9psYPTZATkEvNx/2XMsdGOQjiV9LD31mQwgNavNDLXJZsmFicI1dthTJaciB7C08qE5BipGUSABgyQegQ4KXuJfPjUKCsWUeapR1tZRgiUwj+futjPodqYcPkFkrsni4mZdPe7O2+iieGxw5fIMER9m/MQSXY9pdjTAiVi1AiZ4L8W13PFTcsRi1PwMp2oB5BebPWK6wViI6J5yxJo4g4POKnZhsYDAElJt4OB34lM5evfQVmlwpUe1luNs4ftOjzSPxRuGdYTzeVTHEP3RD0PBgxo3QBFPk7wBmXJYZfgkB5lYIiQ/bWX/t9Qs0r+O2fZZc9OCf9oMvLuFFqcOQAkJxX9qE0vqyU1NDZRb+6tka/lDn/wuhwlkK/VSxOCU9Smt9i8TVymOjweU9YecW9sEoCStz4KKsBnM2OvzFNxKMXVpP5SE4v3EcTBHQvbiMphMVnGF0xLh8wq7Vr7gO5Nlpb1ufhzEu9obUoixs="
+  file: busybox-$CROSS_TRIPLE
+  skip_cleanup: true
+  on:
+    tags: true
