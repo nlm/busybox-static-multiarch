@@ -10,13 +10,14 @@ env:
   - CROSS_TRIPLE=arm-linux-gnueabi
   - CROSS_TRIPLE=arm-linux-gnueabihf
   - CROSS_TRIPLE=aarch64-linux-gnu
-  - CROSS_TRIPLE=mipsel-linux-gnu
   - CROSS_TRIPLE=powerpc64le-linux-gnu
-  - CROSS_TRIPLE=x86_64-apple-darwin
-  - CROSS_TRIPLE=x86_64h-apple-darwin
-  - CROSS_TRIPLE=i386-apple-darwin
-  - CROSS_TRIPLE=x86_64-w64-mingw32
-  - CROSS_TRIPLE=i686-w64-mingw32
+
+#  - CROSS_TRIPLE=mipsel-linux-gnu
+#  - CROSS_TRIPLE=x86_64-apple-darwin
+#  - CROSS_TRIPLE=x86_64h-apple-darwin
+#  - CROSS_TRIPLE=i386-apple-darwin
+#  - CROSS_TRIPLE=x86_64-w64-mingw32
+#  - CROSS_TRIPLE=i686-w64-mingw32
 
 script:
   - make source
