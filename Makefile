@@ -1,9 +1,10 @@
-BUSYBOX_VERSION=1.26.1
+BUSYBOX_VERSION=1.25.1
 BUSYBOX_BZSOURCE=https://www.busybox.net/downloads/busybox-$(BUSYBOX_VERSION).tar.bz2
 CROSS_TRIPLE=x86_64-linux-gnu
 CROSSBUILD_IMAGE=multiarch/crossbuild
 REGISTER_IMAGE=multiarch/qemu-user-static:register
 BUILD_DIR=$(shell pwd)/busybox-build
+CONFIG=defstatic
 
 .PHONY: all build config defconfig test source clean distclean register
 
@@ -17,15 +18,6 @@ busybox-$(CROSS_TRIPLE): source
 
 # Config
 
-#$(BUILD_DIR)/.config: source
-#	echo $@
-#	file $@
-#	touch $@
-#	@echo you must configure busybox build first
-#	@echo -- - run 'make config' for interactive configuration
-#	@echo -- - run 'make defconfig' for default configuration
-#	@echo -- - run 'make copyconfig' to copy 'config' file from current directory
-
 config: source
 	docker run --rm -ti -v $(BUILD_DIR):/workdir -e CROSS_TRIPLE=$(CROSS_TRIPLE) $(CROSSBUILD_IMAGE) make config
 
@@ -33,14 +25,14 @@ defconfig: source
 	docker run --rm -ti -v $(BUILD_DIR):/workdir -e CROSS_TRIPLE=$(CROSS_TRIPLE) $(CROSSBUILD_IMAGE) make defconfig
 
 copyconfig: source
-	cp config $(BUILD_DIR)/.config
+	cp configs/$(CONFIG) $(BUILD_DIR)/.config
 
 # Tests
 
 test: source
 	docker run --rm -ti -v $(BUILD_DIR):/workdir -e CROSS_TRIPLE=$(CROSS_TRIPLE) $(CROSSBUILD_IMAGE) make test
 
-# Get Source
+# Fetch Source
 
 source: $(BUILD_DIR)/.source
 
