@@ -15,6 +15,7 @@ build: busybox-$(CROSS_TRIPLE)
 busybox-$(CROSS_TRIPLE): source
 	docker run --rm -ti -v $(BUILD_DIR):/workdir -e CROSS_TRIPLE=$(CROSS_TRIPLE) $(CROSSBUILD_IMAGE) make
 	cp $(BUILD_DIR)/busybox $@
+	upx --best --brute $@ || true
 
 # Config
 
@@ -44,9 +45,10 @@ $(BUILD_DIR)/.source:
 # Cleaning
 
 clean:
-	rm -fr $(BUILD_DIR)
+	docker run --rm -ti -v $(BUILD_DIR):/workdir -e CROSS_TRIPLE=$(CROSS_TRIPLE) $(CROSSBUILD_IMAGE) make clean
 
 distclean: clean
+	docker run --rm -ti -v $(BUILD_DIR):/workdir -e CROSS_TRIPLE=$(CROSS_TRIPLE) $(CROSSBUILD_IMAGE) make distclean
 	rm -f busybox-$(CROSS_TRIPLE)
 
 # Use register to register the qemu-static programs as binmft_misc hooks
