@@ -3,8 +3,7 @@ BUSYBOX_BZSOURCE=https://dl.xephon.org/busybox/busybox-$(BUSYBOX_VERSION).tar.bz
 CROSS_TRIPLE=x86_64-linux-gnu
 CROSSBUILD_IMAGE=multiarch/crossbuild
 REGISTER_IMAGE=multiarch/qemu-user-static:register
-BUILD_DIR=build
-BUILD_PATH=$(shell pwd)/$(BUILD_DIR)
+BUILD_DIR=$(shell pwd)/busybox-build
 
 .PHONY: all build config defconfig test source clean distclean register
 
@@ -13,7 +12,7 @@ all: build
 build: busybox-$(CROSS_TRIPLE)
 
 busybox-$(CROSS_TRIPLE): $(BUILD_DIR)/.config
-	docker run --rm -ti -v $(BUILD_PATH):/workdir -e CROSS_TRIPLE=$(CROSS_TRIPLE) $(CROSSBUILD_IMAGE) make
+	docker run --rm -ti -v $(BUILD_DIR):/workdir -e CROSS_TRIPLE=$(CROSS_TRIPLE) $(CROSSBUILD_IMAGE) make
 	cp $(BUILD_DIR)/busybox $@
 
 # Config
@@ -29,10 +28,10 @@ $(BUILD_DIR)/.config: source
 	#docker run --rm -ti -v $(BUILD_DIR):/workdir -e CROSS_TRIPLE=$(CROSS_TRIPLE) $(CROSSBUILD_IMAGE) make defconfig
 
 config: source
-	docker run --rm -ti -v $(BUILD_PATH):/workdir -e CROSS_TRIPLE=$(CROSS_TRIPLE) $(CROSSBUILD_IMAGE) make config
+	docker run --rm -ti -v $(BUILD_DIR):/workdir -e CROSS_TRIPLE=$(CROSS_TRIPLE) $(CROSSBUILD_IMAGE) make config
 
 defconfig: source
-	docker run --rm -ti -v $(BUILD_PATH):/workdir -e CROSS_TRIPLE=$(CROSS_TRIPLE) $(CROSSBUILD_IMAGE) make defconfig
+	docker run --rm -ti -v $(BUILD_DIR):/workdir -e CROSS_TRIPLE=$(CROSS_TRIPLE) $(CROSSBUILD_IMAGE) make defconfig
 
 copyconfig: source
 	cp config $(BUILD_DIR)/.config
@@ -40,7 +39,7 @@ copyconfig: source
 # Tests
 
 test: source
-	docker run --rm -ti -v $(BUILD_PATH):/workdir -e CROSS_TRIPLE=$(CROSS_TRIPLE) $(CROSSBUILD_IMAGE) make test
+	docker run --rm -ti -v $(BUILD_DIR):/workdir -e CROSS_TRIPLE=$(CROSS_TRIPLE) $(CROSSBUILD_IMAGE) make test
 
 # Get Source
 
