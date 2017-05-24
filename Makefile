@@ -1,10 +1,10 @@
-BUSYBOX_VERSION=1.25.1
+BUSYBOX_VERSION=1.26.2
 BUSYBOX_BZSOURCE=https://www.busybox.net/downloads/busybox-$(BUSYBOX_VERSION).tar.bz2
 CROSS_TRIPLE=x86_64-linux-gnu
 CROSSBUILD_IMAGE=multiarch/crossbuild
 REGISTER_IMAGE=multiarch/qemu-user-static:register
 BUILD_DIR=$(shell pwd)/busybox-build
-CONFIG=defstatic
+CONFIG=defstatic-$(BUSYBOX_VERSION)
 
 .PHONY: all build config defconfig test source clean distclean register
 
@@ -50,6 +50,7 @@ clean:
 distclean: clean
 	docker run --rm -ti -v $(BUILD_DIR):/workdir -e CROSS_TRIPLE=$(CROSS_TRIPLE) $(CROSSBUILD_IMAGE) make distclean
 	rm -f busybox-$(CROSS_TRIPLE)
+	rm -fr $(BUILD_DIR)
 
 # Use register to register the qemu-static programs as binmft_misc hooks
 
