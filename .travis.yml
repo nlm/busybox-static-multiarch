@@ -3,7 +3,7 @@ services:
 - docker
 language: c
 env:
-- CROSS_TRIPLE=x86_64-linux-gnu
+- CROSS_TRIPLE=x86_64-linux-gnu CROSS_ALIASES="x86_64 amd64"
 - CROSS_TRIPLE=arm-linux-gnueabi
 - CROSS_TRIPLE=arm-linux-gnueabihf
 - CROSS_TRIPLE=aarch64-linux-gnu
